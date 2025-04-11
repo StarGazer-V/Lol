@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stargazer's Study Hall</title>
   <link rel="stylesheet" href="styles.css" />
+  <link id="theme-font" rel="stylesheet" href="">
 </head>
-<body>
+<body class="light">
+  <video id="background-video" autoplay muted loop playsinline></video>
+  <audio id="theme-audio" loop></audio>
+
   <header>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Galaxy_icon.svg/2048px-Galaxy_icon.svg.png" alt="Galaxy Logo" class="logo" />
     <h1>STARGAZER'S STUDY HALL</h1>
@@ -17,11 +21,12 @@
     <section id="timer-settings">
       <label>Study Duration: <input type="number" id="study-duration" value="25" /> minutes</label>
       <label>Break Duration: <input type="number" id="break-duration" value="5" /> minutes</label>
-      <button id="start-button">Start</button>
+      <button id="start-button">Start Pomodoro</button>
     </section>
 
     <section id="timer-display">
       <h2 id="timer">25:00</h2>
+      <p id="session-type">Session: Study</p>
     </section>
 
     <section id="theme-selector">
@@ -39,6 +44,7 @@
         <option value="traffic">TRAFFIC</option>
         <option value="exam">EXAM</option>
       </select>
+      <button id="next-theme">Next Theme</button>
     </section>
 
     <section id="music-player">
@@ -58,6 +64,7 @@
         <option value="dark">Dark</option>
         <option value="gray">Gray</option>
       </select>
+      <button id="toggle-audio">Mute Theme Audio</button>
     </section>
 
     <div id="popup" class="hidden">
@@ -66,7 +73,6 @@
   </main>
 
   <iframe id="youtube-player" style="display:none;" width="0" height="0"></iframe>
-
   <script src="script.js"></script>
 </body>
 </html>
