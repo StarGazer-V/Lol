@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stargazer's Study Hall</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Galaxy_icon.svg/2048px-Galaxy_icon.svg.png" alt="Galaxy Logo" class="logo" />
+    <h1>STARGAZER'S STUDY HALL</h1>
+    <p id="quote">"Stay focused and keep reaching for the stars."</p>
+  </header>
+
+  <main>
+    <section id="timer-settings">
+      <label>Study Duration: <input type="number" id="study-duration" value="25" /> minutes</label>
+      <label>Break Duration: <input type="number" id="break-duration" value="5" /> minutes</label>
+      <button id="start-button">Start</button>
+    </section>
+
+    <section id="timer-display">
+      <h2 id="timer">25:00</h2>
+    </section>
+
+    <section id="theme-selector">
+      <label for="theme">Choose Theme:</label>
+      <select id="theme">
+        <option value="galaxy">GALAXY</option>
+        <option value="lofi">LOFI</option>
+        <option value="sci-fi">SCI-FI</option>
+        <option value="anime">ANIME</option>
+        <option value="sky">SKY</option>
+        <option value="mountain">MOUNTAIN</option>
+        <option value="beach">BEACH</option>
+        <option value="library">LIBRARY</option>
+        <option value="roads">ROADS</option>
+        <option value="traffic">TRAFFIC</option>
+        <option value="exam">EXAM</option>
+      </select>
+    </section>
+
+    <section id="music-player">
+      <label for="youtube-link">YouTube Link:</label>
+      <input type="text" id="youtube-link" placeholder="Enter YouTube URL" />
+      <button id="play-youtube">Play</button>
+
+      <label for="local-file">Upload Music:</label>
+      <input type="file" id="local-file" accept="audio/*" />
+      <audio id="local-audio" controls></audio>
+    </section>
+
+    <section id="mode-switcher">
+      <label for="mode">Select Mode:</label>
+      <select id="mode">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="gray">Gray</option>
+      </select>
+    </section>
+
+    <div id="popup" class="hidden">
+      <p>Congrats you did it! Keep it up!</p>
+    </div>
+  </main>
+
+  <iframe id="youtube-player" style="display:none;" width="0" height="0"></iframe>
+
+  <script src="script.js"></script>
+</body>
+</html>
