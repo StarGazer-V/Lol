@@ -1,137 +1,170 @@
-const themes = {
-  "galaxy": {
-    video: "https://cdn.pixabay.com/video/2016/07/05/742-174336372_large.mp4",
-    audio: "https://cdn.pixabay.com/audio/2023/03/08/audio_f4b8399be6.mp3",
-    font: "https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
-  },
-  "lofi": {
-    video: "https://cdn.pixabay.com/video/2021/11/29/94651-633758549_large.mp4",
-    audio: "https://cdn.pixabay.com/audio/2021/11/08/audio_fa72e7c95a.mp3",
-    font: "https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
-  },
-  "sci-fi": {
-    video: "https://cdn.pixabay.com/video/2022/12/08/142060-784931267_large.mp4",
-    audio: "https://cdn.pixabay.com/audio/2022/11/15/audio_0b4918006a.mp3",
-    font: "https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
-  },
-  "anime": {
-    video: "https://cdn.pixabay.com/video/2022/10/04/132658-761189638_large.mp4",
-    audio: "https://cdn.pixabay.com/audio/2022/10/27/audio_417b576144.mp3",
-    font: "https://fonts.googleapis.com/css2?family=Handlee&display=swap"
-  },
-  // Add more as needed...
-};
-
-let currentThemeIndex = 0;
-const themeKeys = Object.keys(themes);
-const video = document.getElementById("background-video");
-const audio = document.getElementById("theme-audio");
-
-function applyTheme(themeName) {
-  const theme = themes[themeName];
-  if (!theme) return;
-
-  video.src = theme.video;
-  audio.src = theme.audio;
-  audio.play();
-
-  const fontLink = document.getElementById("theme-font");
-  fontLink.href = theme.font;
-  document.body.style.fontFamily = "inherit"; // font will load via Google Fonts
-
-  document.getElementById("theme").value = themeName;
-}
-
-document.getElementById("theme").addEventListener("change", (e) => {
-  currentThemeIndex = themeKeys.indexOf(e.target.value);
-  applyTheme(e.target.value);
-});
-
-document.getElementById("next-theme").addEventListener("click", () => {
-  currentThemeIndex = (currentThemeIndex + 1) % themeKeys.length;
-  applyTheme(themeKeys[currentThemeIndex]);
-});
-
-// Pomodoro logic
-let timer, isStudy = true, currentTime = 0;
-const quotes = [
-  "Keep going, you're doing great!",
-  "Focus is the key to success.",
-  "One step at a time.",
-  "You are capable of amazing things!",
-  "Consistency beats intensity.",
-  "Stay positive and work hard!"
+const subjects = [
+  "Anatomy", "Physiology", "Biochemistry", "Pathology", "Pharmacology", "Microbiology", "Forensic Medicine",
+  "Community Medicine", "ENT", "Ophthalmology", "Medicine", "Surgery", "Obstetrics & Gynaecology", "Paediatrics",
+  "Orthopaedics", "Dermatology", "Psychiatry", "Radiology", "Anaesthesia"
 ];
-let quoteIndex = 0;
-setInterval(() => {
-  document.getElementById('quote').innerText = quotes[quoteIndex];
-  quoteIndex = (quoteIndex + 1) % quotes.length;
-}, 300000);
 
-document.getElementById("start-button").addEventListener("click", () => {
-  isStudy = true;
-  startPomodoro(parseInt(document.getElementById('study-duration').value) * 60);
-});
+const practiceModes = [
+  ["🧠", "AI Adaptive Practice", "Dynamic question blocks based on weak topics, timing, confidence, and revision decay."],
+  ["🩺", "Clinical Scenario Mode", "Long-vignette MCQs with history, examination, investigations, diagnosis, and management."],
+  ["🖼️", "Image-Based Mode", "Radiology, pathology slides, ECGs, instruments, charts, tables, and clinical images."],
+  ["📅", "Daily MCQs", "High-yield daily capsules with streaks, XP, bookmarks, and instant review."],
+  ["🏆", "Grand Tests", "Full-length exam engine with negative marking, timer, review-later, and rank prediction."],
+  ["⚡", "Rapid Revision", "Flash explanations, memory tricks, high-yield facts, and spaced-repetition prompts."],
+  ["📚", "Previous-Year Mode", "Tagged PYQs for NEET PG, INI-CET, FMGE, and university-style revision."],
+  ["🧪", "Custom Test Builder", "Choose subject, chapter, topic, difficulty, PYQ flag, time, and number of questions."]
+];
 
-function startPomodoro(seconds) {
-  clearInterval(timer);
-  currentTime = seconds;
-  updateTimerDisplay();
-
-  timer = setInterval(() => {
-    currentTime--;
-    updateTimerDisplay();
-    if (currentTime <= 0) {
-      clearInterval(timer);
-      new Audio('https://www.soundjay.com/buttons/sounds/button-29.mp3').play();
-      document.getElementById('popup').classList.remove('hidden');
-      setTimeout(() => document.getElementById('popup').classList.add('hidden'), 4000);
-
-      if (isStudy) {
-        isStudy = false;
-        document.getElementById('session-type').innerText = 'Session: Break';
-        startPomodoro(parseInt(document.getElementById('break-duration').value) * 60);
-      } else {
-        isStudy = true;
-        document.getElementById('session-type').innerText = 'Session: Study';
-        startPomodoro(parseInt(document.getElementById('study-duration').value) * 60);
-      }
-    }
-  }, 1000);
-}
-
-function updateTimerDisplay() {
-  const minutes = Math.floor(currentTime / 60).toString().padStart(2, '0');
-  const seconds = (currentTime % 60).toString().padStart(2, '0');
-  document.getElementById('timer').innerText = `${minutes}:${seconds}`;
-}
-
-// Mode change
-document.getElementById('mode').addEventListener('change', function () {
-  document.body.className = this.value;
-});
-
-// Mute toggle
-document.getElementById("toggle-audio").addEventListener("click", () => {
-  audio.muted = !audio.muted;
-});
-
-// YouTube and local audio
-document.getElementById('play-youtube').addEventListener('click', () => {
-  const url = document.getElementById('youtube-link').value;
-  const videoId = new URL(url).searchParams.get("v");
-  const iframe = document.getElementById('youtube-player');
-  if (videoId) {
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-    iframe.style.display = "block";
+const questions = [
+  {
+    subject: "Medicine",
+    difficulty: "Hard",
+    time: "90 sec",
+    stem: "A 24-year-old woman presents with fever, migratory polyarthritis, and a new apical mid-diastolic murmur 3 weeks after untreated pharyngitis. What is the most likely diagnosis?",
+    context: "Throat culture was not performed. ESR and CRP are elevated, PR interval is prolonged, and ASO titre is high.",
+    options: ["Infective endocarditis", "Acute rheumatic fever", "Systemic lupus erythematosus", "Viral myocarditis"],
+    correct: 1,
+    explanation: "The Jones criteria pattern of migratory polyarthritis, carditis suggested by mitral valvulitis, fever, inflammatory markers, prolonged PR interval, and evidence of prior group A streptococcal infection supports acute rheumatic fever.",
+    analysis: ["Endocarditis causes persistent bacteremia and vegetations, not classic migratory arthritis after pharyngitis.", "Correct: major Jones criteria plus streptococcal evidence are present.", "SLE can mimic fever and arthritis but ASO rise and murmur timing favor ARF.", "Myocarditis does not explain migratory polyarthritis and ASO-supported post-streptococcal disease."],
+    highYield: "Jones criteria: J♥NES = Joints, Heart, Nodules, Erythema marginatum, Sydenham chorea."
+  },
+  {
+    subject: "Pathology",
+    difficulty: "Moderate",
+    time: "75 sec",
+    stem: "A lymph node biopsy shows Reed-Sternberg cells in a mixed inflammatory background. Which immunophenotype is most typical?",
+    context: "The patient has painless cervical lymphadenopathy and intermittent fever.",
+    options: ["CD15+, CD30+", "CD3+, CD5+", "CD10+, BCL6+", "CD56+, cytoplasmic CD3+"],
+    correct: 0,
+    explanation: "Classical Hodgkin lymphoma Reed-Sternberg cells typically express CD15 and CD30. The clinical context and morphology support this diagnosis.",
+    analysis: ["Correct: classical Hodgkin lymphoma marker pair.", "T-cell phenotype is not typical for classical RS cells.", "Germinal-centre markers suggest follicular lymphoma or DLBCL subsets.", "NK/T-cell phenotype is unrelated to classical Hodgkin lymphoma."],
+    highYield: "Classical Hodgkin: CD15 and CD30; nodular lymphocyte predominant: CD20 and BCL6."
+  },
+  {
+    subject: "Radiology",
+    difficulty: "Moderate",
+    time: "60 sec",
+    stem: "An elderly patient with sudden severe tearing chest pain has mediastinal widening on chest radiograph. What is the best next imaging test in a stable patient?",
+    context: "Blood pressure is 170/96 mmHg in the right arm and 132/78 mmHg in the left arm.",
+    options: ["Non-contrast CT head", "CT pulmonary angiography only", "CT angiography of the aorta", "Barium swallow"],
+    correct: 2,
+    explanation: "Stable suspected aortic dissection is evaluated with CT angiography of the aorta to define intimal flap, extent, branch involvement, and operative planning.",
+    analysis: ["Head CT does not evaluate the suspected thoracic vascular emergency.", "PE protocol may miss full aortic extent if not tailored.", "Correct: CTA aorta is rapid, available, and definitive in stable patients.", "Barium swallow is obsolete and unsafe for this presentation."],
+    highYield: "Aortic dissection clues: tearing pain, pulse/BP differential, mediastinal widening; stable → CTA."
   }
-});
+];
 
-document.getElementById('local-file').addEventListener('change', (e) => {
-  const localAudio = document.getElementById('local-audio');
-  localAudio.src = URL.createObjectURL(e.target.files[0]);
-  localAudio.play();
-});
+let currentQuestion = 0;
+let selectedOption = null;
 
-// Start with default theme
-applyTheme("galaxy"); 
+function mountPracticeModes() {
+  const grid = document.getElementById("practice-grid");
+  grid.innerHTML = practiceModes.map(([icon, title, body]) => `
+    <article class="feature-card">
+      <div class="feature-icon" aria-hidden="true">${icon}</div>
+      <h3>${title}</h3>
+      <p>${body}</p>
+    </article>
+  `).join("");
+}
+
+function mountSubjectFilter() {
+  const select = document.getElementById("subject-filter");
+  select.innerHTML = ["All", ...subjects].map(subject => `<option>${subject}</option>`).join("");
+}
+
+function renderQuestion(index) {
+  const question = questions[index];
+  selectedOption = null;
+  document.getElementById("question-subject").textContent = question.subject;
+  document.getElementById("question-difficulty").textContent = question.difficulty;
+  document.getElementById("question-time").textContent = question.time;
+  document.getElementById("question-stem").textContent = question.stem;
+  document.getElementById("question-context").textContent = question.context;
+  document.getElementById("explanation-panel").classList.add("hidden");
+  document.getElementById("options").innerHTML = question.options.map((option, optionIndex) => `
+    <button class="option" type="button" aria-pressed="false" data-index="${optionIndex}">
+      <strong>${String.fromCharCode(65 + optionIndex)}.</strong> ${option}
+    </button>
+  `).join("");
+}
+
+function submitAnswer() {
+  if (selectedOption === null) return;
+  const question = questions[currentQuestion];
+  document.querySelectorAll(".option").forEach((button, index) => {
+    button.classList.toggle("correct", index === question.correct);
+    button.classList.toggle("incorrect", index === selectedOption && selectedOption !== question.correct);
+  });
+  document.getElementById("explanation-text").textContent = question.explanation;
+  document.getElementById("option-analysis").innerHTML = question.analysis.map(item => `<li>${item}</li>`).join("");
+  document.getElementById("high-yield-text").textContent = question.highYield;
+  document.getElementById("explanation-panel").classList.remove("hidden");
+}
+
+function drawAccuracyChart() {
+  const canvas = document.getElementById("accuracy-chart");
+  const context = canvas.getContext("2d");
+  const points = [48, 54, 57, 63, 61, 69, 72, 78, 81, 84];
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.strokeStyle = "rgba(148, 163, 184, 0.28)";
+  for (let y = 30; y < 180; y += 40) {
+    context.beginPath();
+    context.moveTo(0, y);
+    context.lineTo(canvas.width, y);
+    context.stroke();
+  }
+  context.strokeStyle = "#34d399";
+  context.lineWidth = 4;
+  context.beginPath();
+  points.forEach((point, index) => {
+    const x = 20 + index * 42;
+    const y = 165 - point * 1.55;
+    if (index === 0) context.moveTo(x, y);
+    else context.lineTo(x, y);
+  });
+  context.stroke();
+}
+
+function mountHeatmap() {
+  const heatmap = document.getElementById("heatmap");
+  const intensity = [0.2, 0.45, 0.75, 0.9, 0.35, 0.62, 0.82, 0.5, 0.18, 0.7, 0.88, 0.42, 0.58, 0.32, 0.95, 0.66];
+  heatmap.innerHTML = intensity.map(value => `<span title="Weakness ${Math.round(value * 100)}%" style="background: rgba(251, 113, 133, ${value})"></span>`).join("");
+}
+
+function registerServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js").catch(() => undefined);
+  }
+}
+
+function bindEvents() {
+  document.querySelector(".nav-toggle").addEventListener("click", event => {
+    const navLinks = document.getElementById("nav-links");
+    const expanded = event.currentTarget.getAttribute("aria-expanded") === "true";
+    event.currentTarget.setAttribute("aria-expanded", String(!expanded));
+    navLinks.classList.toggle("open");
+  });
+
+  document.getElementById("options").addEventListener("click", event => {
+    const button = event.target.closest(".option");
+    if (!button) return;
+    selectedOption = Number(button.dataset.index);
+    document.querySelectorAll(".option").forEach(option => option.setAttribute("aria-pressed", "false"));
+    button.setAttribute("aria-pressed", "true");
+  });
+
+  document.getElementById("submit-answer").addEventListener("click", submitAnswer);
+  document.getElementById("next-question").addEventListener("click", () => {
+    currentQuestion = (currentQuestion + 1) % questions.length;
+    renderQuestion(currentQuestion);
+  });
+}
+
+mountPracticeModes();
+mountSubjectFilter();
+renderQuestion(currentQuestion);
+drawAccuracyChart();
+mountHeatmap();
+bindEvents();
+registerServiceWorker();

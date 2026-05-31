@@ -2,77 +2,158 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Stargazer's Study Hall</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MedAstra AI is a secure, AI-powered NEET PG and INI-CET question bank platform with adaptive practice, analytics, exam simulation, and enterprise administration." />
+  <meta name="theme-color" content="#0f172a" />
+  <meta property="og:title" content="MedAstra AI | NEET PG & INI-CET Question Bank" />
+  <meta property="og:description" content="A premium medical learning ecosystem for clinical MCQs, AI study plans, analytics, and exam readiness." />
+  <title>MedAstra AI | NEET PG & INI-CET Question Bank</title>
+  <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
-  <link id="theme-font" rel="stylesheet" href="">
 </head>
-<body class="light">
-  <video id="background-video" autoplay muted loop playsinline></video>
-  <audio id="theme-audio" loop></audio>
-
-  <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Galaxy_icon.svg/2048px-Galaxy_icon.svg.png" alt="Galaxy Logo" class="logo" />
-    <h1>STARGAZER'S STUDY HALL</h1>
-    <p id="quote">"Stay focused and keep reaching for the stars."</p>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" aria-label="Primary navigation">
+    <nav class="nav-shell">
+      <a class="brand" href="#hero" aria-label="MedAstra AI home">
+        <span class="brand-mark">✦</span>
+        <span>MedAstra AI</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#practice">Practice</a>
+        <a href="#ai-engine">AI Engine</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#admin">Admin</a>
+        <a href="#security">Security</a>
+        <a class="nav-cta" href="#demo">Launch Demo</a>
+      </div>
+    </nav>
   </header>
 
-  <main>
-    <section id="timer-settings">
-      <label>Study Duration: <input type="number" id="study-duration" value="25" /> minutes</label>
-      <label>Break Duration: <input type="number" id="break-duration" value="5" /> minutes</label>
-      <button id="start-button">Start Pomodoro</button>
+  <main id="main">
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">AI-powered NEET PG · INI-CET · MBBS mastery</p>
+        <h1>Clinical question-bank intelligence for India’s next generation of doctors.</h1>
+        <p class="hero-lede">MedAstra AI combines a 19-subject MBBS hierarchy, adaptive MCQs, realistic exam simulation, high-yield explanations, spaced revision, and faculty-controlled AI content generation in one production-ready product blueprint.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#demo">Try the adaptive demo</a>
+          <a class="button secondary" href="docs/architecture.md">Read architecture</a>
+        </div>
+        <dl class="hero-metrics" aria-label="Platform metrics">
+          <div><dt id="metric-questions">250k+</dt><dd>question capacity</dd></div>
+          <div><dt>19</dt><dd>MBBS subjects</dd></div>
+          <div><dt>99.9%</dt><dd>secure uptime target</dd></div>
+        </dl>
+      </div>
+      <aside class="hero-card" aria-label="Live exam readiness snapshot">
+        <div class="score-ring" aria-label="Readiness score 78 percent"><span>78%</span></div>
+        <h2>AI Readiness Index</h2>
+        <p>Rank prediction improves as the engine learns from accuracy, time, negative marks, streaks, and weak-topic recovery.</p>
+        <ul>
+          <li>Weak topics: Neonatal sepsis, ECG axis, renal tubular disorders</li>
+          <li>Next action: 30-question adaptive block</li>
+          <li>Revision due: 42 flashcards tonight</li>
+        </ul>
+      </aside>
     </section>
 
-    <section id="timer-display">
-      <h2 id="timer">25:00</h2>
-      <p id="session-type">Session: Study</p>
+    <section class="section" id="practice">
+      <div class="section-heading">
+        <p class="eyebrow">Practice modes</p>
+        <h2>Every serious NEET PG and INI-CET workflow in one ecosystem.</h2>
+      </div>
+      <div class="feature-grid" id="practice-grid"></div>
     </section>
 
-    <section id="theme-selector">
-      <label for="theme">Choose Theme:</label>
-      <select id="theme">
-        <option value="galaxy">GALAXY</option>
-        <option value="lofi">LOFI</option>
-        <option value="sci-fi">SCI-FI</option>
-        <option value="anime">ANIME</option>
-        <option value="sky">SKY</option>
-        <option value="mountain">MOUNTAIN</option>
-        <option value="beach">BEACH</option>
-        <option value="library">LIBRARY</option>
-        <option value="roads">ROADS</option>
-        <option value="traffic">TRAFFIC</option>
-        <option value="exam">EXAM</option>
-      </select>
-      <button id="next-theme">Next Theme</button>
+    <section class="section split" id="demo">
+      <div>
+        <p class="eyebrow">Interactive question experience</p>
+        <h2>Instant clinical explanations, option analysis, memory hooks, and related concepts.</h2>
+        <p>Students can practice by subject, chapter, topic, mode, previous-year status, difficulty, or AI adaptive recommendations. This demo mirrors the intended learner flow.</p>
+        <div class="filters" aria-label="Custom test builder controls">
+          <label>Subject <select id="subject-filter"></select></label>
+          <label>Difficulty <select id="difficulty-filter"><option>All</option><option>Easy</option><option>Moderate</option><option>Hard</option></select></label>
+          <label>Mode <select id="mode-filter"><option>AI Adaptive</option><option>Clinical Scenario</option><option>Previous-Year</option><option>Image-Based</option><option>Rapid Revision</option></select></label>
+        </div>
+      </div>
+      <article class="question-card" aria-live="polite">
+        <div class="question-meta"><span id="question-subject"></span><span id="question-difficulty"></span><span id="question-time"></span></div>
+        <h3 id="question-stem"></h3>
+        <p id="question-context"></p>
+        <div id="options" class="options"></div>
+        <div class="question-actions">
+          <button class="button primary" id="submit-answer" type="button">Submit answer</button>
+          <button class="button ghost" id="next-question" type="button">Next question</button>
+        </div>
+        <div class="explanation hidden" id="explanation-panel">
+          <h4>Explanation</h4>
+          <p id="explanation-text"></p>
+          <ul id="option-analysis"></ul>
+          <div class="high-yield"><strong>High-yield:</strong> <span id="high-yield-text"></span></div>
+        </div>
+      </article>
     </section>
 
-    <section id="music-player">
-      <label for="youtube-link">YouTube Link:</label>
-      <input type="text" id="youtube-link" placeholder="Enter YouTube URL" />
-      <button id="play-youtube">Play</button>
-
-      <label for="local-file">Upload Music:</label>
-      <input type="file" id="local-file" accept="audio/*" />
-      <audio id="local-audio" controls></audio>
+    <section class="section" id="ai-engine">
+      <div class="section-heading">
+        <p class="eyebrow">AI generation and review</p>
+        <h2>LLM-assisted content creation with faculty governance, quality scoring, and hallucination checks.</h2>
+      </div>
+      <div class="workflow">
+        <div><span>1</span><h3>Ingest</h3><p>Upload PDFs, DOCX, notes, guidelines, topic prompts, or textbook excerpts.</p></div>
+        <div><span>2</span><h3>Generate</h3><p>Create SBA, assertion-reason, image-based, integrated, and INI-CET conceptual MCQs.</p></div>
+        <div><span>3</span><h3>Validate</h3><p>Detect duplicates, check references, score quality, flag hallucination risk, and prevent plagiarism.</p></div>
+        <div><span>4</span><h3>Approve</h3><p>Move Draft → Review → Approved → Published with faculty and moderator audit trails.</p></div>
+      </div>
     </section>
 
-    <section id="mode-switcher">
-      <label for="mode">Select Mode:</label>
-      <select id="mode">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="gray">Gray</option>
-      </select>
-      <button id="toggle-audio">Mute Theme Audio</button>
+    <section class="section dashboard" id="analytics">
+      <div class="section-heading">
+        <p class="eyebrow">Analytics</p>
+        <h2>Performance intelligence beyond simple scores.</h2>
+      </div>
+      <div class="analytics-grid">
+        <article><h3>Learning curve</h3><canvas id="accuracy-chart" width="420" height="180" aria-label="Accuracy graph"></canvas></article>
+        <article><h3>Weak-topic heatmap</h3><div class="heatmap" id="heatmap"></div></article>
+        <article><h3>Exam forecast</h3><p class="forecast">Predicted percentile <strong>91.4</strong><br />Predicted rank <strong>8,420 ± 520</strong><br />Revision efficiency <strong>72%</strong></p></article>
+      </div>
     </section>
 
-    <div id="popup" class="hidden">
-      <p>Congrats you did it! Keep it up!</p>
-    </div>
+    <section class="section" id="admin">
+      <div class="section-heading">
+        <p class="eyebrow">Enterprise admin</p>
+        <h2>Secure operations for millions of questions and learners.</h2>
+      </div>
+      <div class="admin-grid">
+        <article><h3>RBAC roles</h3><p>Student, Moderator, Faculty, and Super Admin with granular permissions.</p></article>
+        <article><h3>Content CRUD</h3><p>Subjects, chapters, topics, subtopics, questions, tests, images, imports, announcements, and notifications.</p></article>
+        <article><h3>Subscriptions</h3><p>Free, Standard, and Premium tiers with Razorpay and Stripe readiness.</p></article>
+        <article><h3>Moderation</h3><p>Audit-backed Draft → Review → Approved → Published workflow.</p></article>
+      </div>
+    </section>
+
+    <section class="section security" id="security">
+      <div>
+        <p class="eyebrow">Security architecture</p>
+        <h2>Designed for JWT authentication, device tracking, audit logs, and rate-limited APIs.</h2>
+      </div>
+      <ul class="security-list">
+        <li>Email + Google login, email verification, password reset, refresh token rotation, optional 2FA.</li>
+        <li>CSRF, XSS, SQL-injection protections, HTTP security headers, and strict input validation.</li>
+        <li>Login history, device sessions, audit logs, RBAC, row-level access, and admin activity monitoring.</li>
+        <li>Super Admin auto-seeding uses <code>ADMIN_PASSWORD</code> from environment only; no hardcoded password.</li>
+      </ul>
+    </section>
   </main>
 
-  <iframe id="youtube-player" style="display:none;" width="0" height="0"></iframe>
-  <script src="script.js"></script>
+  <footer class="site-footer">
+    <p>© 2026 MedAstra AI. Production blueprint includes PostgreSQL schema, OpenAPI contract, Docker, CI, and deployment docs.</p>
+    <a href="docs/api.md">API Docs</a>
+    <a href="database/schema.sql">Database Schema</a>
+  </footer>
+
+  <script src="script.js" defer></script>
 </body>
 </html>

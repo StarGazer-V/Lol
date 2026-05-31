@@ -1,0 +1,18 @@
+{
+  "name": "medastra-ai-platform-blueprint",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready blueprint and PWA prototype for an AI-powered NEET PG and INI-CET question bank platform.",
+  "scripts": {
+    "check": "node --check script.js && node scripts/validate-security.mjs",
+    "start": "python3 -m http.server 4173"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.0.0",
+    "bcrypt": "^5.1.1",
+    "pg": "^8.11.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
