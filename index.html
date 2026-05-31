@@ -2,77 +2,187 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Stargazer's Study Hall</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MedAstra AI question-bank workspace for NEET PG and INI-CET practice, custom MBBS modules, analytics, notes, flashcards, and adaptive quizzes." />
+  <meta name="theme-color" content="#08111f" />
+  <title>MedAstra AI Question Bank</title>
+  <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
-  <link id="theme-font" rel="stylesheet" href="">
 </head>
-<body class="light">
-  <video id="background-video" autoplay muted loop playsinline></video>
-  <audio id="theme-audio" loop></audio>
+<body>
+  <a class="skip-link" href="#main">Skip to question workspace</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Question bank navigation">
+      <a class="brand" href="#dashboard" aria-label="MedAstra AI dashboard">
+        <span class="brand-mark">✦</span>
+        <span><strong>MedAstra AI</strong><small>NEET PG · INI-CET QBANK</small></span>
+      </a>
+      <nav class="side-nav">
+        <a class="active" href="#dashboard">Dashboard</a>
+        <a href="#module-builder">Custom Module</a>
+        <a href="#quiz-panel">Active Quiz</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#review-tools">Review Tools</a>
+      </nav>
+      <div class="streak-card">
+        <span>🔥 12 day streak</span>
+        <strong>480 XP this week</strong>
+        <p>42 flashcards due tonight</p>
+      </div>
+    </aside>
 
-  <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Galaxy_icon.svg/2048px-Galaxy_icon.svg.png" alt="Galaxy Logo" class="logo" />
-    <h1>STARGAZER'S STUDY HALL</h1>
-    <p id="quote">"Stay focused and keep reaching for the stars."</p>
-  </header>
+    <div class="workspace">
+      <header class="topbar">
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <label class="global-search">
+          <span>Search qbank</span>
+          <input type="search" placeholder="Search ECG, shock, brachial plexus..." />
+        </label>
+        <div class="profile-chip" aria-label="Student profile summary">
+          <span class="avatar">VV</span>
+          <span><strong>Student Mode</strong><small>Premium · Rank target 5k</small></span>
+        </div>
+      </header>
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#module-builder">Custom Module</a>
+        <a href="#quiz-panel">Active Quiz</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#review-tools">Review Tools</a>
+      </nav>
 
-  <main>
-    <section id="timer-settings">
-      <label>Study Duration: <input type="number" id="study-duration" value="25" /> minutes</label>
-      <label>Break Duration: <input type="number" id="break-duration" value="5" /> minutes</label>
-      <button id="start-button">Start Pomodoro</button>
-    </section>
+      <main id="main">
+        <section class="dashboard" id="dashboard" aria-labelledby="dashboard-title">
+          <div>
+            <p class="eyebrow">Question bank workspace</p>
+            <h1 id="dashboard-title">Practice, review, and generate custom MBBS modules from one quiz dashboard.</h1>
+          </div>
+          <div class="stat-grid" aria-label="Student performance statistics">
+            <article><span>Readiness</span><strong>78%</strong><small>+6% in 14 days</small></article>
+            <article><span>Accuracy</span><strong>71%</strong><small>Medicine weak</small></article>
+            <article><span>Questions</span><strong>2,846</strong><small>attempted</small></article>
+            <article><span>Due review</span><strong>164</strong><small>spaced repetition</small></article>
+          </div>
+        </section>
 
-    <section id="timer-display">
-      <h2 id="timer">25:00</h2>
-      <p id="session-type">Session: Study</p>
-    </section>
+        <section class="module-card" id="module-builder" aria-labelledby="module-title">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Custom module generator</p>
+              <h2 id="module-title">Generate a quiz module from any MBBS subject, topic, difficulty, and question count.</h2>
+            </div>
+            <span class="status-pill">AI adaptive enabled</span>
+          </div>
+          <form class="builder-grid" id="module-form">
+            <label>Subject
+              <select id="subject-select"></select>
+            </label>
+            <label>Chapter
+              <select id="chapter-select"></select>
+            </label>
+            <label>Topic
+              <select id="topic-select"></select>
+            </label>
+            <label>Question count
+              <input id="question-count" type="number" min="5" max="200" step="5" value="30" />
+            </label>
+            <label>Difficulty
+              <select id="difficulty-select">
+                <option>Adaptive to student</option>
+                <option>Easy</option>
+                <option>Moderate</option>
+                <option>Hard</option>
+                <option>INI-CET conceptual</option>
+              </select>
+            </label>
+            <label>Mode
+              <select id="mode-select">
+                <option>Clinical scenario</option>
+                <option>Subject-wise practice</option>
+                <option>Previous-year only</option>
+                <option>Image-based</option>
+                <option>Rapid revision</option>
+                <option>Mistake notebook</option>
+              </select>
+            </label>
+            <label class="wide">Student goal / prompt
+              <textarea id="student-prompt" rows="3" placeholder="Example: I am weak in murmurs and need NEET PG style questions with ECG/radiology integrations."></textarea>
+            </label>
+            <button class="primary-action" type="submit">Generate module</button>
+          </form>
+          <div class="generated-module" id="generated-module" aria-live="polite">
+            <strong>Ready module:</strong> Medicine → Cardiology → Valvular heart disease · 30 adaptive clinical questions · estimated 38 minutes
+          </div>
+        </section>
 
-    <section id="theme-selector">
-      <label for="theme">Choose Theme:</label>
-      <select id="theme">
-        <option value="galaxy">GALAXY</option>
-        <option value="lofi">LOFI</option>
-        <option value="sci-fi">SCI-FI</option>
-        <option value="anime">ANIME</option>
-        <option value="sky">SKY</option>
-        <option value="mountain">MOUNTAIN</option>
-        <option value="beach">BEACH</option>
-        <option value="library">LIBRARY</option>
-        <option value="roads">ROADS</option>
-        <option value="traffic">TRAFFIC</option>
-        <option value="exam">EXAM</option>
-      </select>
-      <button id="next-theme">Next Theme</button>
-    </section>
+        <section class="quiz-layout" id="quiz-panel">
+          <article class="question-panel" aria-live="polite">
+            <div class="question-toolbar">
+              <div><span id="quiz-path">Medicine / Cardiology</span><strong id="quiz-progress">Question 1 of 30</strong></div>
+              <div class="timer" id="timer">01:30</div>
+            </div>
+            <div class="question-tags"><span id="difficulty-tag">Hard</span><span>Clinical scenario</span><span>NEET PG</span></div>
+            <h2 id="question-stem"></h2>
+            <p id="question-context"></p>
+            <div class="media-placeholder" id="media-placeholder">ECG / radiology / pathology image slot</div>
+            <div id="options" class="options"></div>
+            <div class="quiz-actions">
+              <button class="secondary-action" type="button" id="mark-review">Mark for review</button>
+              <button class="secondary-action" type="button" id="save-note">Add note</button>
+              <button class="primary-action" type="button" id="submit-answer">Submit answer</button>
+              <button class="ghost-action" type="button" id="next-question">Next</button>
+            </div>
+            <section class="explanation hidden" id="explanation-panel">
+              <h3>Answer explanation</h3>
+              <p id="explanation-text"></p>
+              <h4>Option analysis</h4>
+              <ul id="option-analysis"></ul>
+              <div class="high-yield"><strong>Memory hook:</strong> <span id="high-yield-text"></span></div>
+              <div class="related-concepts"><strong>Related concepts:</strong> <span id="related-concepts"></span></div>
+            </section>
+          </article>
 
-    <section id="music-player">
-      <label for="youtube-link">YouTube Link:</label>
-      <input type="text" id="youtube-link" placeholder="Enter YouTube URL" />
-      <button id="play-youtube">Play</button>
+          <aside class="session-panel" aria-label="Quiz session overview">
+            <h2>Module plan</h2>
+            <div class="progress-bar"><span style="width: 18%"></span></div>
+            <dl>
+              <div><dt>Correct</dt><dd id="correct-count">0</dd></div>
+              <div><dt>Marked</dt><dd id="marked-count">0</dd></div>
+              <div><dt>Accuracy</dt><dd id="accuracy-count">--</dd></div>
+            </dl>
+            <h3>AI recommendation</h3>
+            <p id="recommendation">Start with cardiology clinical scenarios, then revise pharmacology of antiarrhythmics.</p>
+            <button class="secondary-action full" type="button" id="make-flashcards">Generate flashcards from mistakes</button>
+          </aside>
+        </section>
 
-      <label for="local-file">Upload Music:</label>
-      <input type="file" id="local-file" accept="audio/*" />
-      <audio id="local-audio" controls></audio>
-    </section>
+        <section class="subjects" id="subjects" aria-labelledby="subjects-title">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">19 MBBS subjects</p>
+              <h2 id="subjects-title">Tap a subject to build a focused module.</h2>
+            </div>
+          </div>
+          <div class="subject-grid" id="subject-grid"></div>
+        </section>
 
-    <section id="mode-switcher">
-      <label for="mode">Select Mode:</label>
-      <select id="mode">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="gray">Gray</option>
-      </select>
-      <button id="toggle-audio">Mute Theme Audio</button>
-    </section>
-
-    <div id="popup" class="hidden">
-      <p>Congrats you did it! Keep it up!</p>
+        <section class="review-tools" id="review-tools" aria-labelledby="review-title">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">Review system</p>
+              <h2 id="review-title">Question-bank tools that behave like a real exam-prep app.</h2>
+            </div>
+          </div>
+          <div class="tool-grid">
+            <article><h3>Mistake notebook</h3><p>Automatically groups wrong answers by subject, topic, cause, and repeat frequency.</p></article>
+            <article><h3>Spaced flashcards</h3><p>Converts explanations into recall cards with due dates and weak-topic priority.</p></article>
+            <article><h3>Previous-year mode</h3><p>Filters PYQs by exam, year, subject, and concept with instant explanation reveal.</p></article>
+            <article><h3>Image bank</h3><p>Dedicated ECG, radiology, pathology slide, instrument, table, and graph practice.</p></article>
+          </div>
+        </section>
+      </main>
     </div>
-  </main>
-
-  <iframe id="youtube-player" style="display:none;" width="0" height="0"></iframe>
-  <script src="script.js"></script>
+  </div>
+  <script src="script.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+{
+  "name": "MedAstra AI Question Bank",
+  "short_name": "MedAstra AI",
+  "description": "AI-powered NEET PG and INI-CET question bank, analytics, and exam platform.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

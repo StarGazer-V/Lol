@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">MedAstra AI icon</title>
+  <desc id="desc">A blue and violet medical star mark on a dark background.</desc>
+  <defs>
+    <linearGradient id="g" x1="92" x2="420" y1="92" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="#07111f"/>
+  <circle cx="256" cy="256" r="178" fill="url(#g)" opacity=".18"/>
+  <path fill="url(#g)" d="M256 80l40 122 128 3-102 76 37 123-103-73-103 73 37-123-102-76 128-3 40-122z"/>
+  <path fill="#f8fafc" d="M236 170h40v172h-40z" opacity=".96"/>
+  <path fill="#f8fafc" d="M170 236h172v40H170z" opacity=".96"/>
+</svg>
